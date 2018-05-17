@@ -8,8 +8,6 @@ def test_initial():
 
 
 def test_exception():
-    number = 'd'
-    roman('55')
     with pytest.raises(Exception):
         assert False
 
@@ -42,8 +40,27 @@ def test_numbers_to_ten(number, expected):
     ('19', 'XIX'),
     ('20', 'XX'),
     ('45', 'XLV'),
-    ('55', 'LV')
+    ('55', 'LV'),
+    ('99', 'XCIX')
 })
 def test_numbers_to_20(number, expected):
     print(len(number))
+    assert roman(number) == expected
+
+
+@pytest.mark.parametrize('number, expected', {
+    ('111', 'CXI'),
+    ('178', 'CLXXVIII'),
+    ('999', 'CMXCIX')
+})
+def test_numbers_to_100(number, expected):
+    assert roman(number) == expected
+
+
+@pytest.mark.parametrize('number, expected', {
+    ('1111', 'MCXI'),
+    ('1782', 'MDCCLXXXII'),
+    ('2470', 'MMCDLXX')
+})
+def test_numbers_to_1000(number, expected):
     assert roman(number) == expected
