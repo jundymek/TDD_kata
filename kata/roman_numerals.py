@@ -14,30 +14,18 @@ def roman(number):
     elif len(number) == 2:
         roman_num = hundreds_numbers(hundreds, number, roman_num)
 
-    elif len(number) == 3:
+    elif len(number) >= 3:
         roman_num = thousands_numbers(number, roman_num, thousands)
 
-    elif len(number) > 3:
-        roman_num = large_numbers(number, roman_num, thousands)
-
-    return roman_num
-
-
-def large_numbers(number, roman_num, thousands):
-    if int(number[0]) < 4:
-        roman_num += thousands[2] * int(number[0]) + roman(number[1:])
-    elif int(number[0]) == 4:
-        roman_num += thousands[0] + thousands[1] + roman(number[1:])
-    elif 4 < int(number[0]) < 9:
-        roman_num += (thousands[1] + (thousands[0] * (int(number[0]) - 5))) + roman(number[1:])
-    else:
-        roman_num += thousands[0] + thousands[2] + roman(number[1:])
     return roman_num
 
 
 def thousands_numbers(number, roman_num, thousands):
     if int(number[0]) < 4:
-        roman_num += thousands[0] * int(number[0]) + roman(number[1:])
+        if len(number) > 3:
+            roman_num += thousands[2] * int(number[0]) + roman(number[1:])
+        else:
+            roman_num += thousands[0] * int(number[0]) + roman(number[1:])
     elif int(number[0]) == 4:
         roman_num += thousands[0] + thousands[1] + roman(number[1:])
     elif 4 < int(number[0]) < 9:
